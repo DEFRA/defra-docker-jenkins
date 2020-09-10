@@ -10,18 +10,18 @@ def call(Map config=[:]) {
     try {
       if (isBuildable) {
         stage('Set GitHub status pending') {
-          updateGithubCommitStatus('Build started', 'PENDING')
+          updateBuildStatus('Build started', 'PENDING')
         }
         imageMaps.each { ImageMap imageMap ->
           buildImages imageName: config.imageName, version: config.version, imageMap: imageMap
         }
         stage('Set GitHub status success') {
-          updateGithubCommitStatus('Build successful', 'SUCCESS')
+          updateBuildStatus('Build successful', 'SUCCESS')
         }
       }
   } catch (err) {
       stage('Set GitHub status failure') {
-        updateGithubCommitStatus(err.message, 'FAILURE')
+        updateBuildStatus(err.message, 'FAILURE')
       }
       throw err
     }

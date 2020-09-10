@@ -1,5 +1,5 @@
 
-void updateGithubCommitStatus(String message, String state) {
+void updateBuildStatus(String message, String state) {
   step([
     $class: 'GitHubCommitStatusSetter',
     reposSource: [$class: 'ManuallyEnteredRepositorySource', url: getRepoUrl],
