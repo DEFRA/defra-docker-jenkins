@@ -1,2 +1,2 @@
-# defra-docker-jenkins
-Shared Jenkins library for Defra Docker base images
+# Defra Docker Jenkins
+Shared Jenkins library for Defra Docker base images.
