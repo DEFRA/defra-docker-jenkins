@@ -1,6 +1,6 @@
 import uk.gov.defra.Image
 
-def call(Image image, boolean latest = false) {
+void call(Image image, boolean latest = false) {
   String imageName = getImageName(image, latest)
 
   sh "docker build --no-cache \

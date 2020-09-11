@@ -1,4 +1,4 @@
-def call() {
+String call() {
   return sh(returnStdout: true, script:
       "curl https://api.github.com/repos/DEFRA/$getRepoName/pulls?state=open | \
       jq '.[] | \
