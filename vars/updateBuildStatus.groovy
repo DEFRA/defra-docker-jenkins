@@ -1,5 +1,4 @@
-
-void call(String message, String state) {
+def call(String message, String state) {
   step([
     $class: 'GitHubCommitStatusSetter',
     reposSource: [$class: 'ManuallyEnteredRepositorySource', url: getRepoUrl],
