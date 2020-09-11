@@ -21,7 +21,7 @@ def call(Map config=[:]) {
       }
   } catch (err) {
       stage('Set GitHub status failure') {
-        updateGithubCommitStatus(err.message, 'FAILURE')
+        updateBuildStatus(err.message, 'FAILURE')
       }
       throw err
     }
