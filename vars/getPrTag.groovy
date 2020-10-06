@@ -1,5 +1,5 @@
 String call() {
-  String repoName = getRepoName
+  String repoName = getRepoName()
   return sh(returnStdout: true, script:
       "curl https://api.github.com/repos/DEFRA/$repoName/pulls?state=open | \
       jq '.[] | \

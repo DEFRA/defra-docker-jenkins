@@ -1,8 +1,9 @@
 import uk.gov.defra.ImageMap
 
 def call(Map config=[:]) {
+  String prTag = getPrTag()
   ImageMap[] imageMaps = config.imageMaps
-  boolean isBuildable = BRANCH_NAME == 'master' || BRANCH_NAME == 'main'
+  boolean isBuildable = BRANCH_NAME == 'master' || prTag != ''
 
   node {
     checkout scm
