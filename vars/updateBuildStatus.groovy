@@ -1,8 +1,6 @@
 void call(String message, String state) {
   String repoUrl = getRepoUrl()
   String commitSha = getCommitSha()
-  echo repoUrl
-  echo commitSha
   step([
     $class: 'GitHubCommitStatusSetter',
     reposSource: [$class: 'ManuallyEnteredRepositorySource', url: repoUrl],

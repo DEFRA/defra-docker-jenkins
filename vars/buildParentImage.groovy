@@ -1,9 +1,8 @@
 import uk.gov.defra.ImageMap
 
 def call(Map config=[:]) {
-  String prTag = getPrTag
   ImageMap[] imageMaps = config.imageMaps
-  boolean isBuildable = BRANCH_NAME == 'master' || prTag != ''
+  boolean isBuildable = BRANCH_NAME == 'master' || BRANCH_NAME == 'main'
 
   node {
     checkout scm
@@ -13,6 +12,7 @@ def call(Map config=[:]) {
           updateBuildStatus('Build started', 'PENDING')
         }
         imageMaps.each { ImageMap imageMap ->
+          echo imageMap
           buildImages imageName: config.imageName, version: config.version, imageMap: imageMap
         }
         stage('Set GitHub status success') {
