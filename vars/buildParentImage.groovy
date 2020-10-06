@@ -12,7 +12,6 @@ def call(Map config=[:]) {
           updateBuildStatus('Build started', 'PENDING')
         }
         imageMaps.each { ImageMap imageMap ->
-          echo imageMap
           buildImages imageName: config.imageName, version: config.version, imageMap: imageMap
         }
         stage('Set GitHub status success') {
