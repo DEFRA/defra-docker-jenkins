@@ -15,15 +15,15 @@ class Image implements Serializable {
     this.isDevelopment = isDevelopment
   }
 
-  static boolean isLatest() {
+  public boolean isLatest() {
     return imageMap.latest
   }
 
-  static String target() {
+  public String target() {
     return isDevelopment ? 'development' : 'production'
   }
 
-  static String fullName(boolean latest = false) {
+  public String fullName(boolean latest = false) {
     String tag = latest ? 'latest' : "${imageMap.version}-${imageName}${imageMap.tag}"
     String repository = isDevelopment ? "${imageName}-development" : imageName
     return "${registry}/${repository}:${tag}"
