@@ -16,7 +16,7 @@ String getPreviousFileVersion(String fileName, String currentVersion) {
 void errorOnNoVersionIncrement(String previousVersion, String currentVersion){
   String cleanPreviousVersion = extractSemVerVersion(previousVersion)
   String cleanCurrentVersion = extractSemVerVersion(currentVersion)
-  if (Version.hasIncremented(cleanPreviousVersion, cleanCurrentVersion)) {
+  if (hasIncremented(cleanPreviousVersion, cleanCurrentVersion)) {
     echo("Version increment valid '$previousVersion' -> '$currentVersion'.")
   } else {
     error("Version increment invalid '$previousVersion' -> '$currentVersion'.")
@@ -26,4 +26,22 @@ void errorOnNoVersionIncrement(String previousVersion, String currentVersion){
 String extractSemVerVersion(String versionTag) {
   String[] splitTag = versionTag.split(/^v-/)
   return splitTag.length > 1 ? splitTag[1] : versionTag
+}
+
+boolean hasIncremented(String currentVersion, String newVersionList) {
+  // For a newly created empty repository currentVersion will be empty on first
+  // merge to master consider 'newVersionList' the first version and return true
+  if (currentVersion == '') {
+    return true
+  }
+  try {
+    int[] currentVersionList = currentVersion.tokenize('.').collect { it.toInteger() }
+    int[] newVersionListList = newVersionList.tokenize('.').collect { it.toInteger() }
+    return currentVersionList.size() == 3 &&
+            newVersionListList.size() == 3 &&
+            [0, 1, 2].any { newVersionListList[it] > currentVersionList[it] }
+  }
+  catch (Exception ex) {
+    return false
+  }
 }
