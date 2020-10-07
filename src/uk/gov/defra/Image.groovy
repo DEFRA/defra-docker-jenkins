@@ -27,7 +27,7 @@ class Image implements Serializable {
   }
 
   String fullName(boolean latest = false) {
-    String tag = latest ? 'latest' : "${version}-${tagName}${imageMap.tag}"
+    String tag = latest ? 'latest' : "${version}-${tagName}${imageMap.version}"
     String repository = isDevelopment ? "${imageName}-development" : imageName
     return "${registry}/${repository}:${tag}"
   }
