@@ -9,7 +9,7 @@ def call(Map config=[:]) {
   stage("Set image variables") {
     version = config.imageMap.version
     image = new Image(DOCKER_REGISTRY, config.imageMap, config.imageName, config.version, config.tagName)
-    developmentImage = new Image(DOCKER_REGISTRY, config.imageMap, config.imageName, config.version, true)
+    developmentImage = new Image(DOCKER_REGISTRY, config.imageMap, config.imageName, config.version, config.tagName, true)
   }
   
   if (!tagExists(image.fullName(), version)) {
