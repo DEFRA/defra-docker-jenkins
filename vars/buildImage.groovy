@@ -12,5 +12,5 @@ void call(Image image, boolean latest = false) {
 }
 
 String getImageName(Image image, boolean latest = false) {
-  return latest ? image.fullName(true) : image.fullName
+  return latest ? image.fullName(true) : image.fullName()
 }
