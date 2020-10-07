@@ -2,11 +2,11 @@ package uk.gov.defra
 
 class Image implements Serializable {
 
-  String registry
-  ImageMap imageMap
-  String imageName
-  String version
-  boolean isDevelopment
+  static String registry
+  static ImageMap imageMap
+  static String imageName
+  static String version
+  static boolean isDevelopment
 
   Image(String registry, ImageMap imageMap, String imageName, String version, boolean isDevelopment = false) {
     this.imageMap = imageMap
