@@ -2,12 +2,12 @@ import uk.gov.defra.ImageMap
 
 def call(Map config=[:]) {
   node {
-    checkout scm    
+    checkout scm
     try {
       String prTag = getPrTag()
       ImageMap[] imageMaps = config.imageMaps
       boolean isBuildable = BRANCH_NAME == 'master' || prTag != ''
-      
+
       if (isBuildable) {
         stage('Set GitHub status pending') {
           updateBuildStatus('Build started', 'PENDING')
