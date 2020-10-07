@@ -9,6 +9,7 @@ class Image implements Serializable {
   boolean isDevelopment
 
   Image(String registry, ImageMap imageMap, String imageName, String version, boolean isDevelopment = false) {
+    this.registry = registry
     this.imageMap = imageMap
     this.imageName = imageName
     this.version = version
