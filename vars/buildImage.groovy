@@ -7,7 +7,7 @@ void call(Image image, boolean latest = false) {
     --tag $imageName \
     --build-arg BASE_VERSION=$image.imageMap.tag \
     --build-arg VERSION=$image.version \
-    --target $image.target \
+    --target ${image.target()} \
     ."
 }
 
