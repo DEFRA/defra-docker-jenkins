@@ -2,11 +2,11 @@ package uk.gov.defra
 
 class Image implements Serializable {
 
-  static String registry
-  static ImageMap imageMap
-  static String imageName
-  static String version
-  static boolean isDevelopment
+  String registry
+  ImageMap imageMap
+  String imageName
+  String version
+  boolean isDevelopment
 
   Image(String registry, ImageMap imageMap, String imageName, String version, boolean isDevelopment = false) {
     this.imageMap = imageMap
@@ -15,15 +15,15 @@ class Image implements Serializable {
     this.isDevelopment = isDevelopment
   }
 
-  static boolean isLatest() {
+  boolean isLatest() {
     return imageMap.latest
   }
 
-  static String target() {
+  String target() {
     return isDevelopment ? 'development' : 'production'
   }
 
-  static String fullName(boolean latest = false) {
+  String fullName(boolean latest = false) {
     String tag = latest ? 'latest' : "${imageMap.version}-${imageName}${imageMap.tag}"
     String repository = isDevelopment ? "${imageName}-development" : imageName
     return "${registry}/${repository}:${tag}"
