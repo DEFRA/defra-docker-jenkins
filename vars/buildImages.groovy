@@ -6,7 +6,7 @@ def call(Map config=[:]) {
   Image image = new Image(DOCKER_REGISTRY, config.imageMap, config.imageName, config.version)
   Image developmentImage = new Image(DOCKER_REGISTRY, config.imageMap, config.imageName, config.version, true)
 
-  if (!tagExists(image.fullName())) {
+  if (!tagExists(image.fullName(), version)) {
     stage("Build images (${version})") {
       buildImage(developmentImage)
       buildImage(image)
