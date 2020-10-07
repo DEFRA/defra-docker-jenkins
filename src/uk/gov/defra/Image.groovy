@@ -14,7 +14,7 @@ class Image implements Serializable {
     this.imageMap = imageMap
     this.imageName = imageName
     this.version = version
-    this.tagName = tagName != '' ? tagName : imageName
+    this.tagName = tagName != null ? tagName : imageName
     this.isDevelopment = isDevelopment
   }
 
