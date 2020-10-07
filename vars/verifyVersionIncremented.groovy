@@ -7,7 +7,7 @@ void call(String fileName) {
 String getPreviousFileVersion(String fileName, String currentVersion) {
   String majorVersion = currentVersion.split('\\.')[0]
   // if there are no existing versions of the MAJOR version no SHA will exist
-  String previousVersionSha = ctx.sh(returnStdout: true, script: "git ls-remote origin -t $majorVersion | cut -f 1").trim()
+  String previousVersionSha = sh(returnStdout: true, script: "git ls-remote origin -t $majorVersion | cut -f 1").trim()
   return previousVersionSha
     ? sh(returnStdout: true, script: "git show $previousVersionSha:$fileName").trim()
     : ''
