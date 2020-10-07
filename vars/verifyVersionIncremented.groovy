@@ -24,6 +24,6 @@ void errorOnNoVersionIncrement(String previousVersion, String currentVersion){
 }
 
 String extractSemVerVersion(String versionTag) {
-  String splitTag = versionTag.split(/^v-/)
+  String[] splitTag = versionTag.split(/^v-/)
   return splitTag.length > 1 ? splitTag[1] : versionTag
 }
