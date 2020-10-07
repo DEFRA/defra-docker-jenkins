@@ -4,6 +4,6 @@ void call(String image) {
       usernameVariable: 'username', passwordVariable: 'password')
   ]) {
     sh "docker login --username $username --password $password"
-    // sh "docker push $image"
+    sh "docker push $image"
   }
 }
