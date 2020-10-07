@@ -2,10 +2,16 @@ import uk.gov.defra.ImageMap
 import uk.gov.defra.Image
 
 def call(Map config=[:]) {
-  String version = config.imageMap.version
-  Image image = new Image(DOCKER_REGISTRY, config.imageMap, config.imageName, config.version)
-  Image developmentImage = new Image(DOCKER_REGISTRY, config.imageMap, config.imageName, config.version, true)
+  String version
+  Image image
+  Image developmentImage
 
+  stage("Set image variables") {
+    version = config.imageMap.version
+    image = new Image(DOCKER_REGISTRY, config.imageMap, config.imageName, config.version)
+    developmentImage = new Image(DOCKER_REGISTRY, config.imageMap, config.imageName, config.version, true)
+  }
+  
   if (!tagExists(image.fullName(), version)) {
     stage("Build images (${version})") {
       buildImage(developmentImage)
@@ -15,6 +21,9 @@ def call(Map config=[:]) {
         buildImage(image, true)
       }
     }
+  }
+
+  if(config.prTag == '') {
     stage("Push images (${version})") {
       pushImage(developmentImage.fullName())
       pushImage(image.fullName())

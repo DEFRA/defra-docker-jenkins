@@ -4,16 +4,22 @@ def call(Map config=[:]) {
   node {
     checkout scm
     try {
-      String prTag = getPrTag()
-      ImageMap[] imageMaps = config.imageMaps
-      boolean isBuildable = BRANCH_NAME == 'master' || prTag != ''
+      String prTag
+      ImageMap[] imageMaps
+      boolean isBuildable
+
+      stage('Set build variables') {
+        prTag = getPrTag()
+        imageMaps = config.imageMaps
+        isBuildable = BRANCH_NAME == 'master' || BRANCH_NAME == 'main' || prTag != ''
+      }
 
       if (isBuildable) {
         stage('Set GitHub status pending') {
           updateBuildStatus('Build started', 'PENDING')
         }
         imageMaps.each { ImageMap imageMap ->
-          buildImages imageName: config.imageName, version: config.version, imageMap: imageMap
+          buildImages imageName: config.imageName, version: config.version, imageMap: imageMap, prTag: prTag
         }
         stage('Set GitHub status success') {
           updateBuildStatus('Build successful', 'SUCCESS')
