@@ -23,7 +23,7 @@ def call(Map config=[:]) {
     }
   }
 
-  if(config.prTag != '') {
+  if(config.prTag == '') {
     stage("Push images (${version})") {
       pushImage(developmentImage.fullName())
       pushImage(image.fullName())
