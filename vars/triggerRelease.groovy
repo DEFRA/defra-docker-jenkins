@@ -7,14 +7,7 @@ boolean call(String versionTag, String repoName, String releaseDescription, Stri
 
   echo("Triggering release $versionTag for $repoName")
   boolean result = false
-  result = sh(returnStdout: true, script: "curl -s -X POST -H 'Authorization: token $token' -d '{ \"tag_name\" : \"$versionTag\", \"name\" : \"Release $versionTag\", \"body\" : \" Release $releaseDescription\" }' https://api.github.com/repos/DEFRA/$repoName/releases")
-  
-  // boolean releaseExistsConfirmation = releaseExists(versionTag, repoName, token)
-  // if (releaseExistsConfirmation) {
-  //   echo('Release Successful')
-  // } else {
-  //   throw new Exception('Release failed')
-  // }
+  sh(returnStdout: true, script: "curl -s -X POST -H 'Authorization: token $token' -d '{ \"tag_name\" : \"$versionTag\", \"name\" : \"Release $versionTag\", \"body\" : \" Release $releaseDescription\" }' https://api.github.com/repos/DEFRA/$repoName/releases")
   return true
 }
 
