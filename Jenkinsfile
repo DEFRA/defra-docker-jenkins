@@ -19,7 +19,7 @@ node {
       stage('Verify version incremented') {
         verifyVersionIncremented(versionFileName)
       }
-    } else {
+    // } else {
       stage('Trigger GitHub release') {
         withCredentials([
           string(credentialsId: 'github-defradigitalci-user', variable: 'gitToken')

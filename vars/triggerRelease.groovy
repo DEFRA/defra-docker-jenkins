@@ -18,7 +18,9 @@ boolean call(String versionTag, String repoName, String releaseDescription, Stri
 
 boolean releaseExists(String versionTag, String repoName, String token){
   try {
-    return sh(returnStdout: true, script: "curl -s -H 'Authorization: token $token' https://api.github.com/repos/DEFRA/$repoName/releases/tags/$versionTag | jq '.tag_name'").trim().replaceAll (/"/, '') == versionTag ? true : false
+    def value = sh(returnStdout: true, script: "curl -s -H 'Authorization: token $token' https://api.github.com/repos/DEFRA/$repoName/releases/tags/$versionTag | jq '.tag_name'").trim().replaceAll (/"/, '') == versionTag ? true : false
+    echo value
+    return value
   }
   catch(Exception ex) {
     echo('Failed to check release status on github')
