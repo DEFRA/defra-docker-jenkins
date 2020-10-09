@@ -25,7 +25,7 @@ node {
           string(credentialsId: 'github-defradigitalci-user', variable: 'gitToken')
         ]) {
           boolean releaseSuccess = triggerRelease(versionTag, repoName, versionTag, gitToken)
-
+          echo "${releaseSuccess}"
           if (releaseSuccess) {
             addSemVerTags(versionTag, repoName)
           }
