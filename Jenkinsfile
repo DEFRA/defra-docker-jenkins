@@ -27,7 +27,7 @@ node {
           boolean releaseSuccess = triggerRelease(versionTag, repoName, versionTag, gitToken)
 
           if (releaseSuccess) {
-            addSemverTags(versionTag, repoName)
+            addSemVerTags(versionTag, repoName)
           }
         }
       }
