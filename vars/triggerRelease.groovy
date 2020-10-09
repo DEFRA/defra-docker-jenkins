@@ -1,5 +1,6 @@
 boolean call(String versionTag, String repoName, String releaseDescription, String token) {
-  if (releaseExists(versionTag, repoName, token)) {
+  boolean releaseExists = releaseExists(versionTag, repoName, token)
+  if (releaseExists) {
     echo("Release $versionTag already exists")
     return false
   }
@@ -8,7 +9,7 @@ boolean call(String versionTag, String repoName, String releaseDescription, Stri
   boolean result = false
   result = sh(returnStdout: true, script: "curl -s -X POST -H 'Authorization: token $token' -d '{ \"tag_name\" : \"$versionTag\", \"name\" : \"Release $versionTag\", \"body\" : \" Release $releaseDescription\" }' https://api.github.com/repos/DEFRA/$repoName/releases")
   
-  if (releaseExists(ctx, versionTag, repoName, token)) {
+  if (releaseExists) {
     echo('Release Successful')
   } else {
     throw new Exception('Release failed')
@@ -16,11 +17,9 @@ boolean call(String versionTag, String repoName, String releaseDescription, Stri
   return true
 }
 
-boolean releaseExists(String versionTag, String repoName, String token){
+boolean releaseExists(String versionTag, String repoName, String token) {
   try {
-    def value = sh(returnStdout: true, script: "curl -s -H 'Authorization: token $token' https://api.github.com/repos/DEFRA/$repoName/releases/tags/$versionTag | jq '.tag_name'").trim().replaceAll (/"/, '')
-    echo "${value}"
-    return value
+    return sh(returnStdout: true, script: "curl -s -H 'Authorization: token $token' https://api.github.com/repos/DEFRA/$repoName/releases/tags/$versionTag | jq '.tag_name'").trim().replaceAll (/"/, '') == versionTag ? true : false
   }
   catch(Exception ex) {
     echo('Failed to check release status on github')
