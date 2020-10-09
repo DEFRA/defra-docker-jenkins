@@ -11,13 +11,13 @@ void call(String version, String repoName) {
 }
 
 void tagCommit(String tag, String commitSha, String repoName) {
-  ctx.dir('attachTag') {
-    ctx.sshagent(['defra-docker-jenkins-github-deploy-key']) {
-      ctx.git(credentialsId: 'defra-docker-jenkins-github-deploy-key', url: "git@github.com:DEFRA/${repoName}.git")
-      ctx.sh("git push origin :refs/tags/$tag")
-      ctx.sh("git tag -f $tag $commitSha")
-      ctx.sh("git push origin $tag")
+  dir('attachTag') {
+    sshagent(['defra-docker-jenkins-github-deploy-key']) {
+      git(credentialsId: 'defra-docker-jenkins-github-deploy-key', url: "git@github.com:DEFRA/${repoName}.git")
+      sh("git push origin :refs/tags/$tag")
+      sh("git tag -f $tag $commitSha")
+      sh("git push origin $tag")
     }
-    ctx.deleteDir()
+    deleteDir()
   }
 }
