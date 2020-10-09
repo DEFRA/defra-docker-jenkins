@@ -1,6 +1,5 @@
 boolean call(String versionTag, String repoName, String releaseDescription, String token) {
-  boolean releaseExists = releaseExists(versionTag, repoName, token)
-  if (releaseExists) {
+  if (releaseExists(versionTag, repoName, token)) {
     echo("Release $versionTag already exists")
     return false
   }
@@ -9,7 +8,7 @@ boolean call(String versionTag, String repoName, String releaseDescription, Stri
   boolean result = false
   result = sh(returnStdout: true, script: "curl -s -X POST -H 'Authorization: token $token' -d '{ \"tag_name\" : \"$versionTag\", \"name\" : \"Release $versionTag\", \"body\" : \" Release $releaseDescription\" }' https://api.github.com/repos/DEFRA/$repoName/releases")
   
-  if (releaseExists) {
+  if (releaseExists(versionTag, repoName, token)) {
     echo('Release Successful')
   } else {
     throw new Exception('Release failed')
