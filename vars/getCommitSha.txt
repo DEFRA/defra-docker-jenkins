@@ -1,0 +1,2 @@
+<p>Global variable added by <a href="https://github.com/DEFRA/defra-docker-jenkins">defra-docker-jenkins</a>.</p>
+<p>Please see <a href="https://github.com/DEFRA/defra-docker-jenkins/blob/master/vars/getCommitSha.md"> documentation</a> for additional details.</p>
