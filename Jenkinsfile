@@ -19,13 +19,12 @@ node {
       stage('Verify version incremented') {
         verifyVersionIncremented(versionFileName)
       }
-    // } else {
+    } else {
       stage('Trigger GitHub release') {
         withCredentials([
           string(credentialsId: 'github-defradigitalci-user', variable: 'gitToken')
         ]) {
           boolean releaseSuccess = triggerRelease(versionTag, repoName, versionTag, gitToken)
-          echo "${releaseSuccess}"
           if (releaseSuccess) {
             addSemVerTags(versionTag, repoName)
           }
